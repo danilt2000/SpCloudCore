@@ -9,7 +9,9 @@ int main()
 {
 	while (true)
 	{
-		cout << "Hello CMake." << endl;
+		cout << "Hello ." << endl;
+		cout << "Hello 2." << endl;
 	}
+
 	return 0;
 }
