@@ -32,7 +32,7 @@ int main()
 
 	//PublishController publish_controller(svr, authorization_service, file_processing);
 
-	PublishController publish_controller(/*svr,*/ authorization_service, file_processing);
+	PublishController publish_controller(svr, authorization_service, file_processing);
 
 	std::cout << "Server is running at http://localhost:8080" << '\n';
 
