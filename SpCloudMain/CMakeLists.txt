@@ -3,7 +3,14 @@
 #
 
 # Add source to this project's executable.
-add_executable (SpCloudMain "SpCloudMain.cpp" "SpCloudMain.h"  )
+add_executable(SpCloudMain
+    "SpCloudMain.cpp"
+    "SpCloudMain.h"
+    "Controllers/PublishController.cpp"
+    "Service/AuthorizationService.cpp"
+    "Service/FileProcessingService.cpp"
+    "Service/CommandService.cpp"
+)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET SpCloudMain PROPERTY CXX_STANDARD 20)
