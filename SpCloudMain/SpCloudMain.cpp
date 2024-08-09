@@ -1,17 +1,18 @@
 ﻿// SpCloudMain.cpp : Defines the entry point for the application.
 //
 
+// ReSharper disable CppClangTidyBugproneSuspiciousInclude
+
 #include "SpCloudMain.h"
+
+#include "Controllers/PublishController.cpp"
 
 using namespace std;
 
 int main()
 {
-	while (true)
-	{
-		cout << "Hello ." << endl;
-		cout << "Hello 2." << endl;
-	}
+	std::cout << "SpCloud start\n";
 
-	return 0;
+	PublishController publish_controller;
+
 }
