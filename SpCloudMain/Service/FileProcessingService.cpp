@@ -32,7 +32,8 @@ public:
 		//std::string command = R"(powershell -Command "& \"C:\Program Files\WinRAR\WinRAR.exe\" x \")" + file_path + R"(\" \")" + final_files_directory + R"(\")";
 
 		//Linux version
-		std::string command = "unzip " + file_path + " -d " + final_files_directory;
+		//std::string command = "unzip " + file_path + " -d " + final_files_directory;
+		std::string command = "unrar x" + file_path + " " + final_files_directory;
 
 		std::thread commandThread(&CommandService::execute_command, command);
 

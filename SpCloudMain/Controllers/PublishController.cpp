@@ -14,7 +14,9 @@ private:
 
 	FileProcessingService file_processing;
 
-	std::string publish_app_path = "C:/Temps/";//Todo change to linux path 
+	//std::string publish_app_path = "/mnt/c/Users/Danil/SpCloudApp";//Todo change to linux path 
+	std::string publish_app_path = "/home/danilt2000/SpCloud/SpCloudApp";//Todo change to linux path 
+	//std::string publish_app_path = "C:/Temps/";// Todo delete if not needed 
 
 public:
 	PublishController(httplib::Server& svr, AuthorizationService authorization, FileProcessingService file_processing)
