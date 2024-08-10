@@ -5,7 +5,8 @@
 
 #include "SpCloudMain.h"
 #include "httplib.h"
-
+#include "spdlog.h"
+#include "basic_file_sink.h"
 #include "Controllers/PublishController.cpp"
 //#include "Service/AuthorizationService.cpp"
 //#include "Service/FileProcessingService.cpp"
@@ -14,12 +15,15 @@ using namespace std;
 
 int main()
 {
+
 	std::cout << "SpCloud start\n";
 
 	httplib::Server svr;
 
 	svr.Get("/ping", [](const httplib::Request& req, httplib::Response& res)
 		{
+			std::cout << "Ping-\n";
+
 			res.set_content("Pong", "text/plain");
 
 			httplib::Headers test = req.headers;

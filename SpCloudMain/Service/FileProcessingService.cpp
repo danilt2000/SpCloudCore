@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <thread>
-
+#include <sys/stat.h>
 #include "CommandService.cpp"
 
 class FileProcessingService
@@ -18,6 +18,7 @@ public:
 		std::ofstream ofs(filename, std::ios::binary);
 		if (!ofs) return false;
 		ofs << content;
+
 		return ofs.good();
 	}
 
@@ -25,11 +26,13 @@ public:
 		std::filesystem::create_directories(path);
 	}
 
+
 	void unzip(const std::string& file_path, const std::string& final_files_directory) {
 		create_directory(final_files_directory);
 
 		//Windows version
 		//std::string command = R"(powershell -Command "& \"C:\Program Files\WinRAR\WinRAR.exe\" x \")" + file_path + R"(\" \")" + final_files_directory + R"(\")";
+		std::cout << "unzip start\n";
 
 		//Linux version
 		//std::string command = "unzip " + file_path + " -d " + final_files_directory;
