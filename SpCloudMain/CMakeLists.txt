@@ -10,6 +10,7 @@ add_executable(SpCloudMain
     "Service/AuthorizationService.cpp"
     "Service/FileProcessingService.cpp"
     "Service/CommandService.cpp"
+    "Service/Logger.cpp"
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
