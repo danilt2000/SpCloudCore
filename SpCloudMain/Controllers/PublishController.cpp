@@ -12,18 +12,18 @@ class PublishController
 private:
 	AuthorizationService authorization;
 
-	FileProcessingService file_processing;
+	std::shared_ptr<FileProcessingService> file_processing;//Smart pointer
 
 	std::string publish_app_path = "/mnt/c/Users/Danil/SpCloudApp";
 	//std::string publish_app_path = "/home/danilt2000/SpCloud/";
 	//std::string publish_app_path = "C:/Temps/";// Todo delete if not needed 
 
 public:
-	PublishController(httplib::Server& svr, AuthorizationService authorization, FileProcessingService file_processing)
+	PublishController(httplib::Server& svr, AuthorizationService authorization, std::shared_ptr<FileProcessingService> file_processing) : authorization(authorization), file_processing(file_processing)
 	{
-		this->authorization = authorization;
+		/*this->authorization = authorization;
 
-		this->file_processing = file_processing;
+		this->file_processing = file_processing;*/
 
 		svr.Post("/publish", [this](const httplib::Request& req, httplib::Response& res)
 			{
@@ -43,7 +43,7 @@ private:
 
 			if (filename.size() >= 4 && filename.substr(filename.size() - 4) == ".rar") {
 				//if (file_processing.save_file_with_retry(filename, content)) {
-				if (file_processing.save_file(filename, content)) {
+				if (file_processing->save_file(filename, content)) {
 
 					//Todo uncommit later
 					//std::string random_string = generate_random_string(20);//Todo think about change 
@@ -74,7 +74,7 @@ private:
 
 	void dotnet_publish(const std::string& path)
 	{
-		std::string dll_file_name = file_processing.find_file_by_suffix(path, "dll");
+		std::string dll_file_name = file_processing->find_file_by_suffix(path, "dll");
 
 		std::string command = R"(dotnet )" + path + "/" + dll_file_name;
 

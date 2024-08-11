@@ -6,14 +6,17 @@
 #include <thread>
 #include <sys/stat.h>
 #include "CommandService.cpp"
+#include "Logger.cpp"
 //#include <Poco/Mutex.h>
 //#include <Poco/Path.h>
 //#include <Poco/FileStr*/eam.h >
 class FileProcessingService
 {
+
 public:
-	FileProcessingService(/*&Logger logger*/)
+	FileProcessingService(Logger& logger) : logger_(logger)
 	{
+
 
 	}
 
@@ -25,8 +28,9 @@ public:
 
 		if (!ofs) return false;
 
-		ofs << content;
+		logger_.log(INFO, "Start saving file");
 
+		ofs << content;
 
 		return ofs.good();
 	}
@@ -136,4 +140,5 @@ public:
 /*private:
 	std::mutex file_mutex; */// Мьютекс для синхронизации доступа к файлу
 
+	Logger& logger_;
 };

@@ -7,7 +7,6 @@
 #include "httplib.h"
 #include "Controllers/PublishController.cpp"
 //#include "Service/AuthorizationService.cpp"
-#include "Service/Logger.cpp"
 //#include "Service/FileProcessingService.cpp"
 using namespace std;
 
@@ -36,7 +35,9 @@ int main()
 
 	AuthorizationService authorization_service;
 
-	FileProcessingService file_processing;
+	//FileProcessingService file_processing(logger);
+
+	auto file_processing = std::make_shared<FileProcessingService>(logger);
 
 	PublishController publish_controller(svr, authorization_service, file_processing);
 
