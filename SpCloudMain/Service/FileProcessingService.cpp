@@ -22,13 +22,17 @@ public:
 
 	bool save_file(const std::string& filename, const std::string& content) {
 
+		logger_.log(INFO, "Start saving file method");
+
 		//std::lock_guard<std::mutex> lock(file_mutex); // Блокируем мьютекс//Todo TEST STABILITY OF THIS
 
 		std::ofstream ofs(filename, std::ios::binary);
 
+		logger_.log(INFO, "Create file stream");
+
 		if (!ofs) return false;
 
-		logger_.log(INFO, "Start saving file");
+		logger_.log(INFO, "Start save content");
 
 		ofs << content;
 

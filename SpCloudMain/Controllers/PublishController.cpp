@@ -5,6 +5,7 @@
 
 #include "../Service/AuthorizationService.cpp"
 #include "../Service/FileProcessingService.cpp"
+//#include "Service/Logger.cpp"
 
 class PublishController
 {
@@ -16,10 +17,14 @@ private:
 
 	//std::string publish_app_path = "/mnt/c/Users/Danil/SpCloudApp";
 	std::string publish_app_path = "/home/danilt2000/SpCloud/";
+
+	Logger& logger_;
+
 	//std::string publish_app_path = "C:/Temps/";// Todo delete if not needed 
 
 public:
-	PublishController(httplib::Server& svr, AuthorizationService authorization, std::shared_ptr<FileProcessingService> file_processing) : authorization(authorization), file_processing(file_processing)
+	PublishController(httplib::Server& svr, AuthorizationService authorization, std::shared_ptr<FileProcessingService> file_processing, Logger& logger)
+		: authorization(authorization), file_processing(file_processing), logger_(logger)
 	{
 		/*this->authorization = authorization;
 
@@ -27,6 +32,8 @@ public:
 
 		svr.Post("/publish", [this](const httplib::Request& req, httplib::Response& res)
 			{
+				logger_.log(INFO, "Start publish");
+
 				this->process_publish(req, res);
 				//httplib::Headers test = req.headers;//Todo add processing header for authorization layer
 			});
