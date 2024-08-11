@@ -35,13 +35,18 @@ int main()
 
 	AuthorizationService authorization_service;
 
-	//FileProcessingService file_processing(logger);
-
 	auto file_processing = std::make_shared<FileProcessingService>(logger);
 
 	PublishController publish_controller(svr, authorization_service, file_processing, logger);
 
 	std::cout << "Server is running at http://localhost:8080" << '\n';
+
+	svr.Post("/publish", [&](const httplib::Request& req, httplib::Response& res)
+		{
+			logger.log(INFO, "Start publish from main");
+
+			publish_controller.process_publish(req, res);
+		});
 
 	svr.listen("0.0.0.0", 8080);
 }

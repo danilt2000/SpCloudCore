@@ -26,20 +26,9 @@ public:
 	PublishController(httplib::Server& svr, AuthorizationService authorization, std::shared_ptr<FileProcessingService> file_processing, Logger& logger)
 		: authorization(authorization), file_processing(file_processing), logger_(logger)
 	{
-		/*this->authorization = authorization;
-
-		this->file_processing = file_processing;*/
-
-		svr.Post("/publish", [this](const httplib::Request& req, httplib::Response& res)
-			{
-				logger_.log(INFO, "Start publish");
-
-				this->process_publish(req, res);
-				//httplib::Headers test = req.headers;//Todo add processing header for authorization layer
-			});
 	}
 
-private:
+public:
 	void process_publish(const httplib::Request& req, httplib::Response& res)
 	{
 		if (this->authorization.is_user_authorized())
@@ -49,15 +38,13 @@ private:
 			const auto& filename = this->publish_app_path + req.files.begin()->second.filename;
 
 			if (filename.size() >= 4 && filename.substr(filename.size() - 4) == ".rar") {
-				//if (file_processing.save_file_with_retry(filename, content)) {
 				if (file_processing->save_file(filename, content)) {
 
-					//Todo uncommit later
-					//std::string random_string = generate_random_string(20);//Todo think about change 
+					std::string random_string = generate_random_string(20);//TODO VERY IMPORTANT CHANGE THIS RANDOM GENERATING TO GENERATE UNIQUE STRING
 
-					//file_processing.unzip(filename, this->publish_app_path + random_string);
+					file_processing->unzip(filename, this->publish_app_path + random_string);
 
-					//this->dotnet_publish(this->publish_app_path + random_string);
+					this->dotnet_publish(this->publish_app_path + random_string);
 
 					res.set_content("File uploaded successfully: " + filename, "text/plain");
 				}
@@ -79,6 +66,7 @@ private:
 		}
 	}
 
+private:
 	void dotnet_publish(const std::string& path)
 	{
 		std::string dll_file_name = file_processing->find_file_by_suffix(path, "dll");
