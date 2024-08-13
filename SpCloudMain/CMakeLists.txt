@@ -11,7 +11,7 @@ add_executable(SpCloudMain
     "Service/FileProcessingService.cpp"
     "Service/CommandService.cpp"
     "Service/Logger.cpp"
-)
+    "Models/User.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET SpCloudMain PROPERTY CXX_STANDARD 20)

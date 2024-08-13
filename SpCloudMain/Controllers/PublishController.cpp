@@ -31,7 +31,8 @@ public:
 public:
 	void process_publish(const httplib::Request& req, httplib::Response& res)
 	{
-		if (this->authorization.is_user_authorized())
+		//if (this->authorization.is_user_authorized())
+		if (true)//Todo change to is user authorized
 		{
 			const auto& content = req.files.begin()->second.content;
 

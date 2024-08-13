@@ -9,6 +9,7 @@
 #include "Logger.cpp"
 class FileProcessingService
 {
+	Logger& logger_;
 
 public:
 	FileProcessingService(Logger& logger) : logger_(logger)
@@ -42,14 +43,6 @@ public:
 	void unzip(const std::string& file_path, const std::string& final_files_directory) {
 		create_directory(final_files_directory);
 
-		//Windows version
-		//std::string command = R"(powershell -Command "& \"C:\Program Files\WinRAR\WinRAR.exe\" x \")" + file_path + R"(\" \")" + final_files_directory + R"(\")";
-
-		//Linux version
-		//std::string command = "unzip " + file_path + " -d " + final_files_directory;
-
-
-
 		std::string command = "unrar x " + file_path + " " + final_files_directory;
 
 		logger_.log(INFO, "Start unzip command" + command);
@@ -68,25 +61,7 @@ public:
 		return ""; //todo add throwing exception 
 	}
 
-	//static void execute_command(const std::string& command) {//todo delete if not needed 
-	//	int result = std::system(command.c_str());  // NOLINT(concurrency-mt-unsafe)
-	//	if (result != 0) {
-	//		std::cerr << "Command failed with code: " << result << std::endl;
-	//	}
-	//}
-
-	//void unzip(const std::string& file_path, const std::string& final_files_directory)
-	//{
-	//	std::string createDirCommand = "mkdir \"" + final_files_directory + "\"";
-
-	//	system(createDirCommand.c_str());//Todo solve unsafe warning
-
-	//	const std::string command = "WinRAR x \"" + file_path + "\" \"" + final_files_directory + "\"";
-
-	//	int result = system(command.c_str());//Todo solve unsafe warning
-	//}
 /*private:
 	std::mutex file_mutex; */// Мьютекс для синхронизации доступа к файлу
 
-	Logger& logger_;
 };
