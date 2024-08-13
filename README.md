@@ -19,3 +19,8 @@ https://youtu.be/VJPfdXN-dSc?si=dF_oWsqM27cMVasz&t=157
 Посмотреть срок годности текущих сертификатов 
 
 sudo certbot certificates
+
+Запустить процесс обновления сертификата 
+
+sudo certbot certonly --manual --preferred-challenges dns
+
