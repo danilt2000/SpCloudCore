@@ -69,7 +69,12 @@ public:
 private:
 	void dotnet_publish(const std::string& path)
 	{
-		std::string dll_file_name = file_processing->find_file_by_suffix(path, "dll");
+		std::string dll_file_name = file_processing->find_file_by_suffix(path, "exe");
+
+		size_t pos = dll_file_name.find(".exe");
+		if (pos != std::string::npos) {
+			dll_file_name.replace(pos, 4, ".dll");
+		}
 
 		std::string command = R"(dotnet )" + path + "/" + dll_file_name;
 

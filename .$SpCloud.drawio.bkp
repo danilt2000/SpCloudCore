@@ -1,0 +1,85 @@
+<mxfile host="Electron" modified="2024-08-13T21:43:33.861Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="dFgMjevLWw3E3R--a62Q" version="23.0.2" type="device">
+  <diagram name="Page-1" id="Amrm0kvx0odSU5wdFRfC">
+    <mxGraphModel dx="989" dy="577" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="masuSCkF3HdqrZElRDKO-8" value="Sp cloud &lt;br&gt;функциональность" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="310" y="90" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-9" value="Паблишь приложения функциональность&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="565" y="150" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-11" value="q1" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="390" y="320" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-12" value="&amp;nbsp;Юзер посылает rar архив с своим приложением и его таргетом&amp;nbsp;&lt;br&gt;и прикрепляет auth токен в header" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="375" y="390" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-14" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" edge="1" target="masuSCkF3HdqrZElRDKO-15">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="500" y="360" as="sourcePoint" />
+            <mxPoint x="650" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-15" value="q2" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="770" y="320" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-16" value="Прошлый сбор автоматически заканчивается&lt;br&gt;и состояние сбора обновляется НО ЕСЛИ АКТИВНЫХ СБОРОВ НЕТУ ТО ДЕНЬГИ СКИДЫВАЮТСЯ НА ПОСЛЕДНИЙ СБОР" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="30" y="790" width="225" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-20" value="Данные Стрим компонента сокет" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="593" y="770" width="140" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-21" value="GoalText" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="masuSCkF3HdqrZElRDKO-20" vertex="1">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-22" value="GoalMaxMoney" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="masuSCkF3HdqrZElRDKO-20" vertex="1">
+          <mxGeometry y="60" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-23" value="GoalCurrentMoney" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="masuSCkF3HdqrZElRDKO-20" vertex="1">
+          <mxGeometry y="90" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="masuSCkF3HdqrZElRDKO-24" value="СomponentColor" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="masuSCkF3HdqrZElRDKO-20" vertex="1">
+          <mxGeometry y="120" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-3" value="Юзер&amp;nbsp;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="180" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-4" value="Лимит" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="150" width="190" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-5" value="Лимит 6 приложений" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="vamjHUPJP5RwR4Vbvad3-4">
+          <mxGeometry y="30" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-6" value="Обязательно роль Team" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="vamjHUPJP5RwR4Vbvad3-4">
+          <mxGeometry y="60" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-7" value="Регестрация через дискорд" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="vamjHUPJP5RwR4Vbvad3-4">
+          <mxGeometry y="90" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-8" value="Лимиты" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="190" width="190" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-9" value="Dotnet 6 7 8&amp;nbsp; (Console + ASP)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="vamjHUPJP5RwR4Vbvad3-8">
+          <mxGeometry y="30" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-10" value="Запустить свою монго дб на 100 мб (возможно добавлю)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="vamjHUPJP5RwR4Vbvad3-8">
+          <mxGeometry y="60" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-11" value="Nuxt js (возможно добавлю)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="vamjHUPJP5RwR4Vbvad3-8">
+          <mxGeometry y="90" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-12" value="&lt;div style=&quot;color: rgb(248, 248, 242); background-color: rgb(33, 33, 33); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;&lt;div&gt;{&lt;/div&gt;&lt;div&gt;&amp;nbsp; &lt;span style=&quot;color: #9cdcfe;&quot;&gt;&quot;target&quot;&lt;/span&gt;&lt;span style=&quot;color: #dcdcdc;&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ce9178;&quot;&gt;&quot;dotnet-6-console&quot;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #dcdcdc;&quot;&gt;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="1">
+          <mxGeometry x="328" y="510" width="222" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-14" value="&amp;nbsp;Юзер получает статус загрузки своего приложения и айпи (если приложение должно работать с интернетом)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="755" y="400" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="vamjHUPJP5RwR4Vbvad3-15" value="&lt;div style=&quot;background-color: rgb(33, 33, 33); line-height: 18px;&quot;&gt;&lt;div style=&quot;color: rgb(248, 248, 242); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;color: rgb(248, 248, 242); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;&quot;status&quot;&lt;span style=&quot;color: rgb(220, 220, 220);&quot;&gt;:&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;&quot;success&quot;,&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;font face=&quot;IBMPlexMono, Courier New, monospace, Consolas, Courier New, monospace&quot; color=&quot;#f8f8f2&quot;&gt;&amp;nbsp; &lt;/font&gt;&lt;span style=&quot;color: rgb(156, 220, 254); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span style=&quot;color: rgb(220, 220, 220); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;:&lt;/span&gt; &lt;font face=&quot;IBMPlexMono, Courier New, monospace, Consolas, Courier New, monospace&quot; color=&quot;#ce9178&quot;&gt;&quot;https://test.almavid.ru&quot;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(248, 248, 242); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;}&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="1">
+          <mxGeometry x="725" y="490" width="255" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

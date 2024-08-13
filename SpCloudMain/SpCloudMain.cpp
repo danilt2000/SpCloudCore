@@ -39,14 +39,16 @@ int main()
 
 	PublishController publish_controller(svr, authorization_service, file_processing, logger);
 
-	std::cout << "Server is running at http://localhost:8080" << '\n';
+	std::cout << "Server is running at http://localhost:8081" << '\n';
 
 	svr.Post("/publish", [&](const httplib::Request& req, httplib::Response& res)
 		{
 			logger.log(INFO, "Start publish from main");
 
 			publish_controller.process_publish(req, res);
+
+			res.set_content("App is running on address ????", "text/plain");//Todo add app address showing 
 		});
 
-	svr.listen("0.0.0.0", 8080);
+	svr.listen("0.0.0.0", 8081);
 }
