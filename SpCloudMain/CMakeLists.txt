@@ -10,6 +10,8 @@ add_executable(SpCloudMain
     "Service/AuthorizationService.cpp"
     "Service/FileProcessingService.cpp"
     "Service/CommandService.cpp"
+    "Service/DiscordService.cpp"
+    "Service/MongoDbService.cpp"
     "Service/Logger.cpp"
     "Models/User.cpp")
 

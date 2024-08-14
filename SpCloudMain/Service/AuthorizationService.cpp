@@ -10,5 +10,10 @@ public:
 		return true;//Todo implement logic for authorization processing 
 	}
 
+	void register_user(User user) {
+
+
+	}
+
 
 };
