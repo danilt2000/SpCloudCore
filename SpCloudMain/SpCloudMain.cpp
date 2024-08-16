@@ -7,6 +7,7 @@
 #include "httplib.h"
 #include "Controllers/PublishController.cpp"
 #include "Service/DiscordService.cpp"
+#include "Service/MongoDbService.cpp"
 
 //#include "Service/AuthorizationService.cpp"
 //#include "Service/FileProcessingService.cpp"
@@ -53,19 +54,15 @@ int main()
 		});
 
 	DiscordService discord_service;
+	MongoDbService mongo_service;
 
-	svr.Post("/register", [&](const httplib::Request& req, httplib::Response& res)
+	svr.Post("/login", [&](const httplib::Request& req, httplib::Response& res)
 		{
-
-
 			string discord_id = discord_service.get_discord_id(req.body);
 
-			res.set_content(discord_id, "text/plain");
+			std::string result = mongo_service.get_user_info(discord_id);
 
-			/*logger.log(INFO, "Start publish from main");
-
-			publish_controller.process_publish(req, res);*/
-
+			res.set_content(result, "text/plain");
 		});
 
 

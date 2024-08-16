@@ -21,7 +21,7 @@ public:
 	{
 		std::string auth_code_processed = extract_code(auth_code);
 
-		//std::string body = "client_id=1273414933874479185&"
+		//std::string body = "client_id=1273414933874479185&"//Todo delete comments if not needed
 		//	"client_secret=S_vG4frjlxWoi8mic_GlcxUO0aWxXwRJ&"
 		//	"grant_type=authorization_code&"
 		//	"code=" + auth_code_processed + "&"
@@ -44,7 +44,6 @@ public:
 		//	return "Error: ";//Todo write handling this 
 		//}
 
-
 		std::string command = "curl --location https://discord.com/api/oauth2/token "
 			"--header \"Content-Type: application/x-www-form-urlencoded\" "
 			"--data-urlencode \"client_id=1273414933874479185\" "
@@ -53,8 +52,48 @@ public:
 			"--data-urlencode \"code=" + auth_code_processed + "\" "
 			"--data-urlencode \"redirect_uri=https://www.sp-donate.ru/pay/Hepatir\"";
 
-		auto future = std::async(std::launch::async, &DiscordService::execute_command, this, command);
-		return future.get();
+		auto code_request = std::async(std::launch::async, &DiscordService::execute_command, this, command);
+
+		std::string access_token = parse_access_token(code_request.get());
+
+
+		command = "curl --location https://discord.com/api/users/@me "
+			"--header \"Authorization: Bearer " + access_token + "\" ";
+
+		auto me_request = std::async(std::launch::async, &DiscordService::execute_command, this, command);
+
+		//httplib::Headers headers = {
+		//    {"Authorization", "Bearer " + access_token}
+		//};
+
+		//auto res = client_.Get("/users/@me", headers);
+
+		//if (res && res->status == 200) {
+		//	return res->body;
+		//}
+		//else {
+		//	return "Error: ";//Todo write handling this 
+		//}
+
+		std::string user_id = extract_user_id(me_request.get());
+
+		return user_id;
+	}
+
+	std::string extract_user_id(const std::string& input) {
+		std::string search_pattern = "\"id\":\"";
+		std::size_t start_pos = input.find(search_pattern);
+		if (start_pos == std::string::npos) {
+			throw std::runtime_error("discord_id not found");
+		}
+
+		start_pos += search_pattern.length();
+		std::size_t end_pos = input.find("\"", start_pos);
+		if (end_pos == std::string::npos) {
+			throw std::runtime_error("End of discord_id not found");
+		}
+
+		return input.substr(start_pos, end_pos - start_pos);
 	}
 
 	std::string execute_command(const std::string& command) {
@@ -67,6 +106,23 @@ public:
 		}
 		return result;
 	}
+
+	//std::string extract_user_id(const std::string& input) {
+	//	std::string search_pattern = "\"discord_id\":\"";
+	//	std::size_t start_pos = input.find(search_pattern);
+	//	if (start_pos == std::string::npos) {
+	//		throw std::runtime_error("discord_id not found");
+	//	}
+
+	//	start_pos += search_pattern.length(); // move to the start of the user_id
+	//	std::size_t end_pos = input.find("\"", start_pos);
+	//	if (end_pos == std::string::npos) {
+	//		throw std::runtime_error("End of discord_id not found");
+	//	}
+
+	//	return input.substr(start_pos, end_pos - start_pos);
+	//}
+
 
 	std::string extract_code(const std::string& json_str) {
 		std::string key = "\"code\":";
@@ -86,5 +142,18 @@ public:
 			}
 		}
 		return "";
+	}
+
+	std::string parse_access_token(const std::string& response) {
+		std::string token_label = "\"access_token\": \"";
+		size_t start_pos = response.find(token_label);
+		if (start_pos != std::string::npos) {
+			start_pos += token_label.length();
+			size_t end_pos = response.find("\"", start_pos);
+			if (end_pos != std::string::npos) {
+				return response.substr(start_pos, end_pos - start_pos);
+			}
+		}
+		return ""; // Вернуть пустую строку, если токен не найден
 	}
 };
