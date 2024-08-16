@@ -1,50 +1,29 @@
 ﻿#include <string>
-
+#ifndef APP_H
+#define APP_H
 class App {
 private:
-        int id;
         std::string name;
-        std::string authToken;
-        bool isBanned;
+        std::string user_id;
+        std::string url;
+        std::string url_on_local_machine;
+        std::string target;
 
 public:
-        // Конструктор
-        App(int id, const std::string& name, const std::string& authToken, bool isBanned)
-                : id(id), name(name), authToken(authToken), isBanned(isBanned) {}
+        App(const std::string& name, const std::string& user_id, const std::string& url,
+                const std::string& url_on_local_machine, const std::string& target)
+                : name(name), user_id(user_id), url(url), url_on_local_machine(url_on_local_machine), target(target) {}
 
-        // Геттеры и сеттеры для Id
-        int getId() const {
-                return id;
-        }
+        std::string get_name() const { return name; }
+        std::string get_user_id() const { return user_id; }
+        std::string get_url() const { return url; }
+        std::string get_url_on_local_machine() const { return url_on_local_machine; }
+        std::string get_target() const { return target; }
 
-        void setId(int id) {
-                this->id = id;
-        }
-
-        // Геттеры и сеттеры для Name
-        std::string getName() const {
-                return name;
-        }
-
-        void setName(const std::string& name) {
-                this->name = name;
-        }
-
-        // Геттеры и сеттеры для AuthToken
-        std::string getAuthToken() const {
-                return authToken;
-        }
-
-        void setAuthToken(const std::string& authToken) {
-                this->authToken = authToken;
-        }
-
-        // Геттеры и сеттеры для IsBanned
-        bool getIsBanned() const {
-                return isBanned;
-        }
-
-        void setIsBanned(bool isBanned) {
-                this->isBanned = isBanned;
-        }
+        void set_name(const std::string& name) { this->name = name; }
+        void set_user_id(const std::string& user_id) { this->user_id = user_id; }
+        void set_url(const std::string& url) { this->url = url; }
+        void set_url_on_local_machine(const std::string& url_on_local_machine) { this->url_on_local_machine = url_on_local_machine; }
+        void set_target(const std::string& target) { this->target = target; }
 };
+#endif // APP_H

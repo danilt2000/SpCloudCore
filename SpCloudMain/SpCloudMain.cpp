@@ -1,16 +1,12 @@
-﻿// SpCloudMain.cpp : Defines the entry point for the application.
-//
-
-// ReSharper disable CppClangTidyBugproneSuspiciousInclude
+﻿// ReSharper disable CppClangTidyBugproneSuspiciousInclude
 
 #include "SpCloudMain.h"
 #include "httplib.h"
 #include "Controllers/PublishController.cpp"
 #include "Service/DiscordService.cpp"
 #include "Service/MongoDbService.cpp"
+#include "Models/App.cpp"
 
-//#include "Service/AuthorizationService.cpp"
-//#include "Service/FileProcessingService.cpp"
 using namespace std;
 
 int main()
@@ -52,19 +48,37 @@ int main()
 		{
 			logger.log(INFO, "Start publish from main");
 
-			string is_user_can_publish_response = mongo_service.is_user_can_publish("khBuvDWPHOhPSiQNVQZm9PM0VF29dqAaDBjWX4BnxJKzRvg0Gm");//TODO UNCOMMENT AND FIX
+			std::string user_id = req.get_file_value("UserId").content;
+			std::string name = req.get_file_value("Name").content;
+			ranges::transform(name, name.begin(), [](unsigned char c) { return std::tolower(c); });
+			std::string target = req.get_file_value("Target").content;
+			std::string authorization_token = req.get_header_value("Authorization");
+
+			string is_user_can_publish_response = mongo_service.is_user_can_publish(authorization_token);
 
 			if (is_user_can_publish_response != "Success")
 			{
-				res.set_content(is_user_can_publish_response, "text/plain");//Todo add app address showing
+				res.set_content(is_user_can_publish_response, "text/plain");
 
 				return;
 			}
 
-			//publish_controller.process_publish(req, res);//TODO UNCOMMENT AND FIX
+			string is_app_name_response = mongo_service.is_app_name_free(name);
 
-				//mongo_service.add_app("test", "test", "test", "test", "test");//TODO UNCOMMENT AND FIX
+			if (is_app_name_response != "Success")
+			{
+				res.set_content(is_app_name_response, "text/plain");
 
+				return;
+			}
+
+			App* app = new App(name, user_id, "url", "local_url", target);
+
+			publish_controller.process_publish(req, app);
+
+			//mongo_service.add_app("test", "test", "test", "test", "test");//TODO UNCOMMENT AND FIX
+
+			delete app;
 
 			res.set_content("App is running on address ????", "text/plain");//Todo add app address showing 
 		});
@@ -78,28 +92,6 @@ int main()
 
 			res.set_content(result, "text/plain");
 		});
-
-
-	/*httplib::Client cli("https://discord.com/api/oauth2/token");
-
-	std::string jsonData = R"({
-	"dataSource": "Cluster0",
-	"database": "myDatabase",
-	"collection": "items",
-	"document": {
-	    "name": "Item Name",
-	    "value": "Item Value"
-	}
-    })";
-
-	auto res = cli.Post("/app/data-abcde/endpoint/data/v1/action/insertOne", jsonData, "application/json");
-
-	if (res && res->status == 200) {
-		std::cout << "Success: " << res->body << std::endl;
-	}
-	else {
-		std::cerr << "Error: " << res.error() << std::endl;
-	}*/
 
 	svr.listen("0.0.0.0", 8081);
 }

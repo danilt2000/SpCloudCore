@@ -86,6 +86,34 @@ public:
 		return "Success";
 	}
 
+	std::string is_app_name_free(std::string name)
+	{
+		std::string json_data = R"({
+		"dataSource": "SpCloudCluster",
+		"database": "SpCloud",
+		"collection": "Apps",
+		"filter": {
+			"name": ")" + name + R"("
+		}
+		})";
+
+		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/findOne' "
+			"--header 'Content-Type: application/json' "
+			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--data-raw '" + json_data + "'";
+
+		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
+
+		std::string response = request.get();
+
+		if (response == "{\"document\":null}")
+		{
+			return "Success";
+		}
+
+		return "App name isn't free please select another one";
+	}
+
 	std::string add_app(std::string name, std::string user_id, std::string url, std::string url_on_local_mahcine, std::string target)
 	{
 		std::string json_data = R"({
