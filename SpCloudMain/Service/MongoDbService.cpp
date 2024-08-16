@@ -12,48 +12,18 @@ class MongoDbService
 public:
 	MongoDbService()
 	{
-		//mongocxx::instance inst{};
-		//const auto uri = mongocxx::uri{ "mongodb+srv://loker:<password>@spcloudcluster.xwpnw.mongodb.net/?retryWrites=true&w=majority&appName=SpCloudCluster" };
-		//// Set the version of the Stable API on the client
-		//mongocxx::options::client client_options;
-		//const auto api = mongocxx::options::server_api{ mongocxx::options::server_api::version::k_version_1 };
-		//client_options.server_api_opts(api);
-		//// Setup the connection and get a handle on the "admin" database.
-		//mongocxx::client conn{ uri, client_options };
-		//mongocxx::database db = conn["admin"];
-		//// Ping the database.
-		//const auto ping_cmd = bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp("ping", 1));
-		//db.run_command(ping_cmd.view());
-		//std::cout << "Pinged your deployment. You successfully connected to MongoDB!" << std::endl;
 	}
 
 	std::string get_user_info(std::string user_id)
 	{
-		/*std::string json_data = R"({
-	"dataSource": "SpCloudCluster",
-	"database": "SpCloud",
-	"collection": "User",
-	"document": {
-	    "name": "Item Name",
-	    "value": "Item Value"
-	}
-    })";
-		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/insertOne' "
-			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
-			"--data-raw '" + json_data + "'";
-
-		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
-*/
-
 		std::string json_data = R"({
-    "dataSource": "SpCloudCluster",
-    "database": "SpCloud",
-    "collection": "AllowedUsers",
-    "filter": {
-        "discord_id": ")" + user_id + R"("
-    }
-})";
+		"dataSource": "SpCloudCluster",
+		"database": "SpCloud",
+		"collection": "AllowedUsers",
+		"filter": {
+			"discord_id": ")" + user_id + R"("
+		}
+		})";
 
 		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/findOne' "
 			"--header 'Content-Type: application/json' "
@@ -65,7 +35,82 @@ public:
 		std::string response = request.get();
 
 		return response;
-		//return response.find("\"document\": null") == std::string::npos;
+	}
+
+	std::string is_user_can_publish(std::string auth_token)
+	{
+		std::string json_data = R"({
+		"dataSource": "SpCloudCluster",
+		"database": "SpCloud",
+		"collection": "AllowedUsers",
+		"filter": {
+			"auth_token": ")" + auth_token + R"("
+		}
+		})";
+
+		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/findOne' "
+			"--header 'Content-Type: application/json' "
+			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--data-raw '" + json_data + "'";
+
+		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
+
+		std::string response = request.get();
+
+		size_t pos_is_user_banned = response.find("\"is_banned\":");
+
+		std::string is_banned_value = response.substr(pos_is_user_banned + 12, response.find_first_of(",}", pos_is_user_banned) - pos_is_user_banned - 12);
+
+		if (is_banned_value == "true")
+		{
+			return "Fail publish: user is banned";
+		}
+
+		size_t pos_apps_limit_count = response.find("\"apps_limit_count\":");
+
+		std::string apps_limit_count = response.substr(pos_apps_limit_count + 19, response.find_first_of(",}", pos_apps_limit_count) - pos_apps_limit_count - 19);
+
+		int apps_limit_count_int = std::stoi(apps_limit_count);
+
+		size_t pos_app_count = response.find("\"app_count\":");
+
+		std::string app_count = response.substr(pos_app_count + 12, response.find_first_of(",}", pos_app_count) - pos_app_count - 12);
+
+		int app_count_int = std::stoi(app_count);
+
+		if (app_count_int >= apps_limit_count_int)
+		{
+			return "Fail publish: user reached publish limit user have " + app_count + " apps with user limit " + apps_limit_count;
+		}
+
+		return "Success";
+	}
+
+	std::string add_app(std::string name, std::string user_id, std::string url, std::string url_on_local_mahcine, std::string target)
+	{
+		std::string json_data = R"({
+		"dataSource": "SpCloudCluster",
+		"database": "SpCloud",
+		"collection": "Apps",
+		"document": {
+			"name": ")" + name + R"(",
+			"user_id": ")" + user_id + R"(",
+			"url": ")" + url + R"(",
+			"url_on_local_machine": ")" + url_on_local_mahcine + R"(",
+			"target": ")" + target + R"("
+			}
+		})";
+
+		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/insertOne' "
+			"--header 'Content-Type: application/json' "
+			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--data-raw '" + json_data + "'";
+
+		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
+
+		std::string response = request.get();
+
+		return response;
 	}
 
 	std::string execute_command(const std::string& command) {

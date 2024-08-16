@@ -13,7 +13,7 @@ add_executable(SpCloudMain
     "Service/DiscordService.cpp"
     "Service/MongoDbService.cpp"
     "Service/Logger.cpp"
-    "Models/User.cpp")
+    "Models/User.cpp" "Models/App.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET SpCloudMain PROPERTY CXX_STANDARD 20)

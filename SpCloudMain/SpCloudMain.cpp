@@ -36,25 +36,39 @@ int main()
 			httplib::Headers test = req.headers;
 		});
 
+	std::cout << "Server is running at http://localhost:8081" << '\n';
+
 	AuthorizationService authorization_service;
 
 	auto file_processing = std::make_shared<FileProcessingService>(logger);
 
 	PublishController publish_controller(svr, authorization_service, file_processing, logger);
 
-	std::cout << "Server is running at http://localhost:8081" << '\n';
+	DiscordService discord_service;
+
+	MongoDbService mongo_service;
 
 	svr.Post("/publish", [&](const httplib::Request& req, httplib::Response& res)
 		{
 			logger.log(INFO, "Start publish from main");
 
-			publish_controller.process_publish(req, res);
+			string is_user_can_publish_response = mongo_service.is_user_can_publish("khBuvDWPHOhPSiQNVQZm9PM0VF29dqAaDBjWX4BnxJKzRvg0Gm");//TODO UNCOMMENT AND FIX
+
+			if (is_user_can_publish_response != "Success")
+			{
+				res.set_content(is_user_can_publish_response, "text/plain");//Todo add app address showing
+
+				return;
+			}
+
+			//publish_controller.process_publish(req, res);//TODO UNCOMMENT AND FIX
+
+				//mongo_service.add_app("test", "test", "test", "test", "test");//TODO UNCOMMENT AND FIX
+
 
 			res.set_content("App is running on address ????", "text/plain");//Todo add app address showing 
 		});
 
-	DiscordService discord_service;
-	MongoDbService mongo_service;
 
 	svr.Post("/login", [&](const httplib::Request& req, httplib::Response& res)
 		{
