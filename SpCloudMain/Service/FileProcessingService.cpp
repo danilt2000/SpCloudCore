@@ -209,15 +209,23 @@ public:
 
 			std::string command_reload = "sudo systemctl daemon-reload";
 
-			std::thread commandThreadReload(&CommandService::execute_command, command_reload);
+			/*std::thread commandThreadReload(&CommandService::execute_command, command_reload);
 
-			commandThreadReload.join();
+			commandThreadReload.join();*/
 
 			std::string command_start = "sudo systemctl start " + name + ".service";
 
-			std::thread commandThreadStart(&CommandService::execute_command, commandThreadStart);
+			//std::thread commandThreadStart(&CommandService::execute_command, commandThreadStart);
 
-			commandThreadStart.join();
+			//commandThreadStart.join();
+
+			auto request_reload = std::async(std::launch::async, &FileProcessingService::execute_command, this, command_reload);
+
+			std::string response_reload = request_reload.get();
+
+			auto request_start = std::async(std::launch::async, &FileProcessingService::execute_command, this, command_start);
+
+			std::string response_start = request_start.get();
 
 			//Todo check service ->sudo systemctl status <service-name>.service
 
@@ -228,6 +236,18 @@ public:
 		else {
 			logger_.log(INFO, "Unable to open file " + filename + " for writing: " + strerror(errno) + "\n");
 		}
+	}
+
+
+	std::string execute_command(const std::string& command) {
+		std::array<char, 128> buffer;
+		std::string result;
+		std::shared_ptr<FILE> pipe(popen(command.c_str(), "r"), pclose);
+		if (!pipe) throw std::runtime_error("popen() failed!");
+		while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+			result += buffer.data();
+		}
+		return result;
 	}
 
 	void create_directory(const std::string& path) {

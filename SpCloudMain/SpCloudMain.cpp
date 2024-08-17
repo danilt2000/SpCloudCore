@@ -72,12 +72,12 @@ int main()
 				return;
 			}
 
-			App* app = new App(name, user_id, "url", "local_url", target/*,"service_name"*/);
+			App* app = new App(name, user_id, "url", "local_url", target,"service_name");
 
 			publish_controller.process_publish(req, app);
 
-			//mongo_service.add_app(app->get_name(), app->get_user_id(), app->get_url(),
-			//	app->get_url_on_local_machine(), app->get_target()/*, app->get_service_name()*/);//TODO UNCOMMENT AND FIX
+			mongo_service.add_app(app->get_name(), app->get_user_id(), app->get_url(),
+				app->get_url_on_local_machine(), app->get_target(), app->get_service_name());//TODO UNCOMMENT AND FIX
 
 			delete app;
 

@@ -67,11 +67,11 @@ public:
 
 				file_processing->delete_file(filename);
 
-				/*app->set_url("https://" + app->get_name() + ".almavid.ru/");
+				app->set_url("https://" + app->get_name() + ".almavid.ru/");
 
-				app->set_url_on_local_machine("http://localhost:" + std::to_string(last_available_port));*/
+				app->set_url_on_local_machine("http://localhost:" + std::to_string(last_available_port));
 
-				//app->set_service_name(app_final_file_path);
+				app->set_service_name(app_final_file_path);
 
 				return "Publish successfully: " + filename;
 			}
