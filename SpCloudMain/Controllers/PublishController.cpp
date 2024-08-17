@@ -23,8 +23,6 @@ private:
 
 	int last_available_port = 8081;
 
-	//std::string publish_app_path = "C:/Temps/";// Todo delete if not needed 
-
 public:
 	PublishController(httplib::Server& svr, AuthorizationService authorization, std::shared_ptr<FileProcessingService> file_processing, Logger& logger)
 		: authorization(authorization), file_processing(file_processing), logger_(logger)
@@ -42,21 +40,40 @@ public:
 			//if (true) {//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
 			if (file_processing->save_file(filename, content)) {
 
-				file_processing->unzip(filename, this->publish_app_path + app->get_user_id());//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
+				std::string app_final_file_path = app->get_name() + app->get_user_id();//TODO VERY IMPORTANT CHANGE THIS RANDOM GENERATING TO GENERATE UNIQUE STRING
 
-				/*check_port_and_increase_if_not_available();
+				logger_.log(INFO, "app_final_file_path: " + app_final_file_path);
 
-				file_processing->adjust_nginx_configuration_and_reloud(app->get_name(), std::to_string(last_available_port));*/
+				file_processing->unzip(filename, this->publish_app_path + app_final_file_path);//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
 
+				check_port_and_increase_if_not_available();
+
+				file_processing->adjust_nginx_configuration_and_reloud(app->get_name(), std::to_string(last_available_port));
+
+				file_processing->create_service_file(this->publish_app_path, app_final_file_path);//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
 				//file_processing->create_service_file(app->get_name());//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
 
-				//this->dotnet_publish(this->publish_app_path + app->get_user_id(), last_available_port);//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
+				if (app->get_target() == "dotnet network")
+				{
+					this->dotnet_publish(this->publish_app_path + app_final_file_path, last_available_port);//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
+				}
 
-				//Todo introduce old binary file 
+				if (app->get_target() == "dotnet")
+				{
+					this->dotnet_publish(this->publish_app_path + app_final_file_path);//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
+				}
+
+				//Todo introduce increase counter of available app for user in mongo db
 
 				file_processing->delete_file(filename);
 
-				return "File uploaded successfully: " + filename;
+				/*app->set_url("https://" + app->get_name() + ".almavid.ru/");
+
+				app->set_url_on_local_machine("http://localhost:" + std::to_string(last_available_port));*/
+
+				//app->set_service_name(app_final_file_path);
+
+				return "Publish successfully: " + filename;
 			}
 			else {
 				return "Failed to save file, please ensure you are putting rar file" + filename;
@@ -72,7 +89,23 @@ private:
 	void dotnet_publish(const std::string& path, int port)
 	{//Todo adjust to build setting from mongodb
 		std::string dll_file_name = file_processing->find_file_by_suffix(path, "exe");
-		//Todo introduce deleting old rar file after publishing
+		size_t pos = dll_file_name.find(".exe");
+		if (pos != std::string::npos) {
+			dll_file_name.replace(pos, 4, ".dll");
+		}
+
+		std::string command = R"(dotnet )" + path + "/" + dll_file_name + " --urls http://localhost:" + std::to_string(port);
+
+		logger_.log(INFO, "dotnet_publish command : " + command);
+
+		std::thread commandThread(&CommandService::execute_command, command);
+
+		commandThread.detach();
+	}
+
+	void dotnet_publish(const std::string& path)
+	{//Todo adjust to build setting from mongodb
+		std::string dll_file_name = file_processing->find_file_by_suffix(path, "exe");
 		size_t pos = dll_file_name.find(".exe");
 		if (pos != std::string::npos) {
 			dll_file_name.replace(pos, 4, ".dll");

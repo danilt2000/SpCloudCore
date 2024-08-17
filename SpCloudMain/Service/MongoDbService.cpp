@@ -114,7 +114,7 @@ public:
 		return "App name isn't free please select another one";
 	}
 
-	std::string add_app(std::string name, std::string user_id, std::string url, std::string url_on_local_mahcine, std::string target)
+	std::string add_app(std::string name, std::string user_id, std::string url, std::string url_on_local_mahcine, std::string target/*, std::string service_name*/)
 	{
 		std::string json_data = R"({
 		"dataSource": "SpCloudCluster",
@@ -124,6 +124,7 @@ public:
 			"name": ")" + name + R"(",
 			"user_id": ")" + user_id + R"(",
 			"url": ")" + url + R"(",
+			"service_name": ")" + "TEST" + R"(",
 			"url_on_local_machine": ")" + url_on_local_mahcine + R"(",
 			"target": ")" + target + R"("
 			}
