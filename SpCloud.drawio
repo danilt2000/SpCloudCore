@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-08-16T21:20:37.157Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="PSu86GYPCNH2GZ5_TS_U" version="23.0.2" type="device">
+<mxfile host="Electron" modified="2024-08-18T04:29:53.933Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="0jojfn5qSBAhfaUR8JPi" version="23.0.2" type="device">
   <diagram name="Page-1" id="Amrm0kvx0odSU5wdFRfC">
-    <mxGraphModel dx="1024" dy="597" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1593" dy="929" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -56,25 +56,25 @@
           <mxGeometry y="90" width="190" height="30" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-12" value="&lt;div style=&quot;color: rgb(248, 248, 242); background-color: rgb(33, 33, 33); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;&lt;div&gt;{&lt;/div&gt;&lt;div&gt;&amp;nbsp; &lt;span style=&quot;color: #9cdcfe;&quot;&gt;&quot;target&quot;&lt;/span&gt;&lt;span style=&quot;color: #dcdcdc;&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ce9178;&quot;&gt;&quot;dotnet-6-console&quot;,&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&quot;appName&quot;&lt;span style=&quot;color: rgb(220, 220, 220);&quot;&gt;:&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;&quot;TestApp&quot;&lt;/span&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #dcdcdc;&quot;&gt;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="1" vertex="1">
-          <mxGeometry x="328" y="510" width="222" height="140" as="geometry" />
+          <mxGeometry x="328" y="490" width="222" height="140" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-14" value="&amp;nbsp;Юзер получает статус загрузки своего приложения и айпи (если приложение должно работать с интернетом)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="755" y="400" width="150" height="100" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-15" value="&lt;div style=&quot;background-color: rgb(33, 33, 33); line-height: 18px;&quot;&gt;&lt;div style=&quot;color: rgb(248, 248, 242); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;{&lt;/div&gt;&lt;div style=&quot;color: rgb(248, 248, 242); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;&quot;status&quot;&lt;span style=&quot;color: rgb(220, 220, 220);&quot;&gt;:&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;&quot;success&quot;,&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;font face=&quot;IBMPlexMono, Courier New, monospace, Consolas, Courier New, monospace&quot; color=&quot;#f8f8f2&quot;&gt;&amp;nbsp; &lt;/font&gt;&lt;span style=&quot;color: rgb(156, 220, 254); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span style=&quot;color: rgb(220, 220, 220); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;:&lt;/span&gt; &lt;font face=&quot;IBMPlexMono, Courier New, monospace, Consolas, Courier New, monospace&quot; color=&quot;#ce9178&quot;&gt;&quot;https://test.almavid.ru&quot;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(248, 248, 242); font-family: IBMPlexMono, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;}&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="1" vertex="1">
-          <mxGeometry x="725" y="490" width="255" height="150" as="geometry" />
+          <mxGeometry x="690" y="490" width="255" height="150" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-17" value="SpСloud UI" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="355" y="700" width="160" height="30" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-18" value="" style="html=1;whiteSpace=wrap;strokeColor=none;fillColor=#0079D6;labelPosition=center;verticalLabelPosition=middle;verticalAlign=top;align=center;fontSize=12;outlineConnect=0;spacingTop=-6;fontColor=#FFFFFF;sketch=0;shape=mxgraph.sitemap.page;" parent="1" vertex="1">
-          <mxGeometry x="120" y="690" width="630" height="950" as="geometry" />
+          <mxGeometry x="120" y="610" width="630" height="950" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-21" value="Зарегистрироваться" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="610" y="760" width="130" height="30" as="geometry" />
+          <mxGeometry x="610" y="630" width="130" height="30" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-22" value="Ник пользователя" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="645" y="800" width="60" height="30" as="geometry" />
+          <mxGeometry x="645" y="670" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-23" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Нагрузка сервера в данный момент CPU/RAM/Memory&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="368.75" y="1190" width="145" height="50" as="geometry" />
@@ -119,7 +119,7 @@
           <mxGeometry x="453.75" y="1260" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-40" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Окно для загрузки архива приложения&amp;nbsp;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="335" y="940" width="200" height="30" as="geometry" />
+          <mxGeometry x="335" y="840" width="200" height="30" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-41" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Ссылка на видео гайд&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="335" y="1470" width="200" height="30" as="geometry" />
@@ -149,10 +149,10 @@
           <mxGeometry y="120" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-51" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="359" y="1020" width="160" height="160" as="geometry" />
+          <mxGeometry x="345" y="940" width="180" height="180" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-52" value="&lt;font style=&quot;font-size: 41px;&quot;&gt;SpСloud&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="409" y="830" width="60" height="30" as="geometry" />
+          <mxGeometry x="409" y="705" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-53" value="App" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1170" y="830" width="220" height="180" as="geometry" />
@@ -160,26 +160,74 @@
         <mxCell id="vamjHUPJP5RwR4Vbvad3-55" value="Name" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="vamjHUPJP5RwR4Vbvad3-53" vertex="1">
           <mxGeometry y="30" width="220" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="siBud0lxFuAxErJTvobO-3" value="UserId" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="vamjHUPJP5RwR4Vbvad3-53">
+        <mxCell id="siBud0lxFuAxErJTvobO-3" value="UserId" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="vamjHUPJP5RwR4Vbvad3-53" vertex="1">
           <mxGeometry y="60" width="220" height="30" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-56" value="Url" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="vamjHUPJP5RwR4Vbvad3-53" vertex="1">
           <mxGeometry y="90" width="220" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="siBud0lxFuAxErJTvobO-1" value="UrlLocalMachine" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="vamjHUPJP5RwR4Vbvad3-53">
+        <mxCell id="siBud0lxFuAxErJTvobO-1" value="UrlLocalMachine" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="vamjHUPJP5RwR4Vbvad3-53" vertex="1">
           <mxGeometry y="120" width="220" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="siBud0lxFuAxErJTvobO-2" value="Target" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="vamjHUPJP5RwR4Vbvad3-53">
+        <mxCell id="siBud0lxFuAxErJTvobO-2" value="Target" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="vamjHUPJP5RwR4Vbvad3-53" vertex="1">
           <mxGeometry y="150" width="220" height="30" as="geometry" />
         </mxCell>
         <mxCell id="vamjHUPJP5RwR4Vbvad3-58" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="vamjHUPJP5RwR4Vbvad3-49" target="vamjHUPJP5RwR4Vbvad3-55" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="siBud0lxFuAxErJTvobO-5" value="Обновить текущее приложение&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="365" y="980" width="60" height="30" as="geometry" />
+        <mxCell id="siBud0lxFuAxErJTvobO-5" value="Обновить текущее приложение&amp;nbsp;" style="text;html=1;strokeColor=#001DBC;fillColor=#0050ef;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="400" y="872.5" width="70" height="55" as="geometry" />
         </mxCell>
-        <mxCell id="siBud0lxFuAxErJTvobO-6" value="Загрузить новое приложение&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="450" y="980" width="60" height="30" as="geometry" />
+        <mxCell id="siBud0lxFuAxErJTvobO-6" value="Загрузить новое приложение&amp;nbsp;" style="text;html=1;strokeColor=#2D7600;fillColor=#60a917;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="328" y="870" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-1" value="Удалить своё приложение" style="text;html=1;strokeColor=#6F0000;fillColor=#a20025;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="480" y="872.5" width="70" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-3" value="Загрузить новое приложение&amp;nbsp;" style="text;html=1;strokeColor=#2D7600;fillColor=#60a917;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="1080" width="240" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-4" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="1250" width="520" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-5" value="App name: Test" style="text;html=1;strokeColor=#001DBC;fillColor=#0050ef;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="1290" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-7" value="App type: dotnet console" style="text;html=1;strokeColor=#001DBC;fillColor=#0050ef;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="1290" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-8" value="File input (SpCloud support only rar)" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="1410" width="180" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-9" value="Удалить своё приложение" style="text;html=1;strokeColor=#6F0000;fillColor=#a20025;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="1860" width="192.5" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-22" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" vertex="1" parent="1">
+          <mxGeometry x="1036.88" y="2030" width="518.75" height="203.75" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-11" value="App name: Test" style="text;html=1;strokeColor=#001DBC;fillColor=#0050ef;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;strokeWidth=2;perimeterSpacing=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="2050" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-15" value="Загрузить" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="1620" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-16" value="Удалить" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="2110" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-23" value="Обновить текущее приложение&amp;nbsp;" style="text;html=1;strokeColor=#001DBC;fillColor=#0050ef;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1202.5" y="2280" width="195" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-24" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" vertex="1" parent="1">
+          <mxGeometry x="1040.62" y="2470" width="518.75" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-25" value="App name: Test" style="text;html=1;strokeColor=#001DBC;fillColor=#0050ef;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;strokeWidth=2;perimeterSpacing=1;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="2490" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-26" value="Обновить" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="1">
+          <mxGeometry x="1186.26" y="2750" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="z0wMfMEwee2VdXHU60ub-27" value="File input (SpCloud support only rar)" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1206.25" y="2550" width="180" height="180" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

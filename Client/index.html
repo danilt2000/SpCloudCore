@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpCloud</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    <div id="globalLoading" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="container">
+
+<div id="uploadModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Загрузить новое приложение</h2>
+        <div class="upload-section-modal">
+            <div class="upload-info">
+                <label for="appName">App Name:</label>
+                <input type="text" id="appName" name="appName" required>
+                
+                <label for="appTarget">Target:</label>
+                <select id="appTarget" name="appTarget" required>
+                    <option value="dotnet network">dotnet asp</option>
+                    <option value="dotnet">dotnet</option>
+                </select>
+            </div>
+            <div class="upload-window">
+                <input type="file" id="fileInput" name="fileInput" accept=".rar" required>
+                <p>SpCloud support only rar</p>
+            </div>
+            <button id="uploadBtn" class="upload-button-modal">Загрузить</button>
+        </div>
+    </div>
+</div>
+
+<!-- Update Modal -->
+<div id="updateModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Обновить приложение</h2>
+        <div class="upload-section-modal">
+            <div class="upload-info">
+                <label for="updateAppName">App Name:</label>
+                <select id="updateAppName" name="updateAppName" required>
+                    <option value="" disabled selected>Выберите приложение</option>
+                    <!-- Options will be dynamically populated -->
+                </select>
+            </div>
+            <div class="upload-window">
+                <input type="file" id="updateFileInput" name="updateFileInput" accept=".rar" required>
+                <p>SpCloud support only rar</p>
+            </div>
+            <button id="updateBtn" class="upload-button-modal">Обновить</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Delete Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Удалить приложение</h2>
+        <div class="upload-section-modal">
+            <div class="upload-info">
+                <label for="deleteAppName">App Name:</label>
+                <select id="deleteAppName" name="deleteAppName" required>
+                    <option value="" disabled selected>Выберите приложение</option>
+                    <!-- Options will be dynamically populated -->
+                </select>
+            </div>
+            <button id="deleteBtn" class="upload-button-modal">Удалить</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+        <header>
+            <h1>SpCloud</h1>
+            <div class="user-panel">
+                <button class="register-button"
+                    onclick="window.location.href='https://discord.com/oauth2/authorize?client_id=1273414933874479185&response_type=code&redirect_uri=https%3A%2F%2Fspcloud.almavid.ru&scope=identify';">Sign
+                    in</button>
+                <p class="username"></p>
+            </div>
+        </header>
+
+        <div class="upload-section">
+            <h2>Окно для загрузки архива приложения</h2>
+            <div class="buttons">
+                <button class="upload-button">Загрузить новое приложение</button>
+                <button class="update-button">Обновить приложение</button>
+                <button class="delete-button">Удалить своё приложение</button>
+            </div>
+
+        </div>
+
+        <div class="server-stats">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>AppUrl</th>
+                    <th>CpuUsage</th>
+                    <th>MemoryUsage</th>
+                    <th>Target</th>
+                </tr>
+
+                <!-- Dynamic content will be inserted here -->
+            </table>
+        </div>
+        <div class="server-stats">
+            <h3>Нагрузка сервера в данный момент</h3>
+            <p>CPU/RAM/Memory (N/A)</p>
+        </div>
+        <footer>
+            <a href="https://www.youtube.com/watch?v=rUxyKA_-grg">Как пользоваться SpCloud:
+                https://www.youtube.com/watch?v=rUxyKA_-grg</a>
+        </footer>
+    </div>
+    <script src="scripts.js"></script>
+    <style>
+
+        /* Global Loading Overlay */
+.loading-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 9999; /* Ensure it's on top of other elements */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+/* Spinner Animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+
+
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #81d4fa;
+            margin: 15% auto;
+            /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .upload-section-modal {
+            text-align: center;
+            padding: 20px;
+            background-color: #0288d1;
+            border-radius: 10px;
+        }
+
+        .upload-info {
+            margin-bottom: 20px;
+        }
+
+        .upload-info span {
+            display: inline-block;
+            margin: 10px;
+            background-color: #1976d2;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .upload-window {
+            background-color: #067ad9;
+            margin: 0 auto;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .upload-button-modal {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .upload-info select {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    background-color: #1976d2;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #b3e5fc;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            height: 90%;
+            background-color: #0288d1;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .user-panel {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            text-align: right;
+        }
+
+        .register-button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            /* Space between the button and username */
+        }
+
+        .username {
+            margin: 20px;
+        }
+
+        .upload-section {
+            background-color: #81d4fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .upload-section h2 {
+            margin-top: 0;
+        }
+
+        .buttons {
+            margin-bottom: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upload-button {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .update-button {
+            background-color: #1976d2;
+            color: white;
+        }
+
+        .delete-button {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .upload-window {
+            background-color:#067ad9;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        .server-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            max-height: 300px;
+            /* Add a max height for the scroll */
+            overflow-y: auto;
+            /* Enable vertical scrolling */
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+            background-color: #000;
+            color: #fff;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+
+
+</html>

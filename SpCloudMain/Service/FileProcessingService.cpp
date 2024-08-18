@@ -247,48 +247,19 @@ public:
 
 			serviceFile << "[Service]\n";
 			serviceFile << "ExecStart=" << exec_start_command << "\n";
-			//serviceFile << "ExecStart=/usr/bin/dotnet /home/danilt2000/SpCloud/" + name + "/" + dll_file_name + "\n";
-			//serviceFile << "ExecStart=/home/danilt2000/SpCloud/SpCloudMain/build/SpCloudMain\n";
 			serviceFile << "WorkingDirectory=/home/danilt2000/SpCloud/" + name + "\n";
-			//serviceFile << "WorkingDirectory=/home/danilt2000/SpCloud/SpCloudMain/build\n";
 			serviceFile << "Restart=always\n";
 			serviceFile << "User=danilt2000\n";
+
 			serviceFile << "Environment=ASPNETCORE_URLS=http://0.0.0.0:" + port + "\n";
+
 			serviceFile << "Environment=PATH=/usr/bin\n";
 			serviceFile << "Environment=NODE_ENV=production\n\n";
 
 			serviceFile << "[Install]\n";
 			serviceFile << "WantedBy=multi-user.target\n";
 
-			//Todo check service ->sudo systemctl status <service-name>.service
-
 			serviceFile.close();
-
-			//std::string command_reload = "sudo systemctl daemon-reload";
-
-			///*std::thread commandThreadReload(&CommandService::execute_command, command_reload);
-
-			//commandThreadReload.join();*/
-
-
-			//std::string command_enable = "sudo systemctl enable " + name + ".service";
-
-			//std::string command_start = "sudo systemctl start " + name + ".service";
-			////std::thread commandThreadStart(&CommandService::execute_command, commandThreadStart);
-
-			////commandThreadStart.join();
-
-			//auto request_reload = std::async(std::launch::async, &FileProcessingService::execute_command, this, command_reload);
-
-			//std::string response_reload = request_reload.get();
-
-			//auto request_enable = std::async(std::launch::async, &FileProcessingService::execute_command, this, command_enable);
-
-			//std::string response_enable = request_enable.get();
-
-			//auto request_start = std::async(std::launch::async, &FileProcessingService::execute_command, this, command_start);
-
-			//std::string response_start = request_start.get();
 
 			std::string command_reload = "sudo systemctl daemon-reload";
 			std::string command_enable = "sudo systemctl enable " + name + ".service";

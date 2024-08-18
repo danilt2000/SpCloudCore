@@ -45,9 +45,9 @@ public:
 
 				file_processing->unzip(filename, this->publish_app_path + app_final_file_path);
 
-				check_port_and_increase_if_not_available();
+				check_port_and_increase_if_not_available();//
 
-				file_processing->adjust_nginx_configuration_and_reloud(app->get_name(), std::to_string(last_available_port));
+				file_processing->adjust_nginx_configuration_and_reloud(app->get_name(), std::to_string(last_available_port));//
 
 				file_processing->create_service_file(this->publish_app_path, app_final_file_path, std::to_string(last_available_port));
 
@@ -63,9 +63,9 @@ public:
 
 				file_processing->delete_file(filename);
 
-				app->set_url("https://" + app->get_name() + ".almavid.ru/");
+				app->set_url("https://" + app->get_name() + ".almavid.ru/");//
 
-				app->set_url_on_local_machine("http://localhost:" + std::to_string(last_available_port));
+				app->set_url_on_local_machine("http://localhost:" + std::to_string(last_available_port));//
 
 				app->set_service_name(app_final_file_path);
 

@@ -27,7 +27,7 @@ public:
 			"--data-urlencode \"client_secret=S_vG4frjIxWoi8mic_GlcxUO0aWxXwRJ\" "
 			"--data-urlencode \"grant_type=authorization_code\" "
 			"--data-urlencode \"code=" + auth_code_processed + "\" "
-			"--data-urlencode \"redirect_uri=https://www.sp-donate.ru/pay/Hepatir\"";
+			"--data-urlencode \"redirect_uri=https://spcloud.almavid.ru\"";
 
 		auto code_request = std::async(std::launch::async, &DiscordService::execute_command, this, command);
 

@@ -81,7 +81,7 @@ int main()
 
 			mongo_service.increase_user_app_count_(app->get_user_id());
 
-			res.set_content("App is running on address:" + app->get_url(), "text/plain");
+			res.set_content("App is running " + app->get_url(), "text/plain");
 
 			delete app;
 		});
