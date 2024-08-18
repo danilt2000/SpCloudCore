@@ -7,6 +7,13 @@
 
 ![image](https://github.com/user-attachments/assets/de70f098-8d52-42a7-84e7-08b93258bb74)
 
+Processor: Intel® Core™ i7-3630QM 
+
+Ram: 16Gb
+
+Memory: 500Gb
+
+Location: Czech Republic
 
 ## Features
 
