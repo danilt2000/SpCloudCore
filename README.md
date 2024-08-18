@@ -1,6 +1,16 @@
 # SpCloud
 
 ![image](https://github.com/user-attachments/assets/f928facd-6eb6-4ea9-a92d-a638fda4e079)
+# SpCloudMain
+
+**SpCloudMain** is a micro-hosting solution running on a developer's laptop, designed for uploading and testing .NET applications. This project provides a simple and efficient way to deploy your projects with minimal time resources.
+
+## Features
+
+- **Application Uploading**: Supports uploading project rar archives via an interface
+- **Supported Application Types**: ASP.NET and .NET console applications.
+- **Resource Management**: Limited by the laptop's resources; excessive usage may lead to the removal of your application and a ban.
+
 
 
 
@@ -31,4 +41,12 @@ Do not overuse hosting resources.
 If your application consumes excessive resources, it may be removed, and you will be banned.
 
 Use the hosting responsibly and stay updated on any changes.
+
+
+## Contribution
+
+The project has a MIT and open for contributions
+
+
+
 
