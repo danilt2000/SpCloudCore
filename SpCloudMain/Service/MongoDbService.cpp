@@ -27,7 +27,7 @@ public:
 
 		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/findOne' "
 			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data-raw '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -55,7 +55,7 @@ public:
 			"curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/updateOne' "
 			"--header 'Content-Type: application/json' "
 			"--header 'Access-Control-Request-Headers: *' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -83,7 +83,7 @@ public:
 			"curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/updateOne' "
 			"--header 'Content-Type: application/json' "
 			"--header 'Access-Control-Request-Headers: *' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -107,7 +107,7 @@ public:
 		std::string command =
 			"curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/deleteOne' "
 			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -131,7 +131,7 @@ public:
 		std::string command =
 			"curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/findOne' "
 			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data-raw '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -178,7 +178,7 @@ public:
 
 		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/findOne' "
 			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data-raw '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -207,7 +207,7 @@ public:
 
 		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/findOne' "
 			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data-raw '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -256,7 +256,7 @@ public:
 
 		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/findOne' "
 			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data-raw '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -288,7 +288,7 @@ public:
 
 		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/findOne' "
 			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data-raw '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -321,7 +321,7 @@ public:
 
 		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/insertOne' "
 			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data-raw '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
@@ -344,7 +344,7 @@ public:
 
 		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/find' "
 			"--header 'Content-Type: application/json' "
-			"--header 'api-key: Q1NfSCrruUAzsxdrjhZd3sjSwiqbdSFmCLeaCatZiuohUXsvEq9RtEAeG0JL2Jd7' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
 			"--data-raw '" + json_data + "'";
 
 		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);

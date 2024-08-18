@@ -24,7 +24,7 @@ public:
 		std::string command = "curl --location https://discord.com/api/oauth2/token "
 			"--header \"Content-Type: application/x-www-form-urlencoded\" "
 			"--data-urlencode \"client_id=1273414933874479185\" "
-			"--data-urlencode \"client_secret=S_vG4frjIxWoi8mic_GlcxUO0aWxXwRJ\" "
+			"--data-urlencode \"client_secret=" + std::string(std::getenv("DiscordAppSecret")) + "\" "
 			"--data-urlencode \"grant_type=authorization_code\" "
 			"--data-urlencode \"code=" + auth_code_processed + "\" "
 			"--data-urlencode \"redirect_uri=https://spcloud.almavid.ru\"";
