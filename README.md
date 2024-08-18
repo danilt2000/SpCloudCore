@@ -46,6 +46,9 @@ If your application consumes excessive resources, it may be removed, and you wil
 
 Use the hosting responsibly and stay updated on any changes.
 
+### Video Guide
+For a detailed walkthrough, watch the [video guide on YouTube](https://www.youtube.com/watch?v=_y95JUfvo_U).
+
 
 ## Contribution
 
