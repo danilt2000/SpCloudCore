@@ -102,6 +102,13 @@ int main()
 
 			std::string name = req.get_file_value("Name").content;
 
+			if (name.empty() || name == " ")
+			{
+				res.set_content("Select another app name", "text/plain");
+
+				return;
+			}
+
 			std::string authorization_token = req.get_header_value("Authorization");
 
 			string is_user_banned = mongo_service.is_user_banned(authorization_token);
@@ -138,6 +145,13 @@ int main()
 			std::string user_id = req.get_file_value("UserId").content;
 
 			std::string name = req.get_file_value("Name").content;
+
+			if (name.empty() || name == " ")
+			{
+				res.set_content("Select another app name", "text/plain");
+
+				return;
+			}
 
 			std::string authorization_token = req.get_header_value("Authorization");
 
