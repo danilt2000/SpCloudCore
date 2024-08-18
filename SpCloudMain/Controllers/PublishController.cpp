@@ -45,27 +45,35 @@ public:
 
 				file_processing->unzip(filename, this->publish_app_path + app_final_file_path);
 
-				check_port_and_increase_if_not_available();//
-
-				file_processing->adjust_nginx_configuration_and_reloud(app->get_name(), std::to_string(last_available_port));//
-
-				file_processing->create_service_file(this->publish_app_path, app_final_file_path, std::to_string(last_available_port));
-
 				if (app->get_target() == "dotnet network")
 				{
-					this->dotnet_publish(this->publish_app_path + app_final_file_path, last_available_port);
+					check_port_and_increase_if_not_available();
+
+					file_processing->adjust_nginx_configuration_and_reloud(app->get_name(), std::to_string(last_available_port));//
+
+					file_processing->create_service_file_dotnet(this->publish_app_path, app_final_file_path,
+						std::to_string(last_available_port), true);
+
+					//this->dotnet_publish(this->publish_app_path + app_final_file_path, last_available_port);//Test
+
+					app->set_url("https://" + app->get_name() + ".almavid.ru/");
+
+					app->set_url_on_local_machine("http://localhost:" + std::to_string(last_available_port));
 				}
 
 				if (app->get_target() == "dotnet")
 				{
-					this->dotnet_publish(this->publish_app_path + app_final_file_path);
+					file_processing->create_service_file_dotnet(this->publish_app_path, app_final_file_path,
+						std::to_string(last_available_port), false);
+
+					//this->dotnet_publish(this->publish_app_path + app_final_file_path);//Test
+
+					app->set_url("Worker Service");
+
+					app->set_url_on_local_machine("Worker Service");
 				}
 
 				file_processing->delete_file(filename);
-
-				app->set_url("https://" + app->get_name() + ".almavid.ru/");//
-
-				app->set_url_on_local_machine("http://localhost:" + std::to_string(last_available_port));//
 
 				app->set_service_name(app_final_file_path);
 
@@ -124,8 +132,6 @@ public:
 		file_processing->remove_nginx_configuration_block_and_reload(app->get_name());
 
 		file_processing->stop_service_file(app_final_file_path);
-
-		//file_processing->stop_and_start_service_file(app_final_file_path);
 
 		return "Success";
 	}

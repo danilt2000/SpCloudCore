@@ -223,13 +223,16 @@ public:
 		std::string response_reload = execute_and_log_command(command_stop);
 	}
 
-	void create_service_file(std::string path, std::string name, std::string port)
+	void create_service_file_dotnet(std::string path, std::string name, std::string port, bool is_asp)
 	{
-		logger_.log(INFO, "Start create_service_file");
+		logger_.log(INFO, "Start create_service_file_dotnet");
 
-		std::string dll_file_name = find_file_by_suffix(path, "exe");
+		std::string dll_file_name = find_file_by_suffix(path + "/" + name, "exe");
+
 		size_t pos = dll_file_name.find(".exe");
+
 		if (pos != std::string::npos) {
+
 			dll_file_name.replace(pos, 4, ".dll");
 		}
 
@@ -243,7 +246,7 @@ public:
 
 			std::string exec_start_command = "/usr/bin/dotnet /home/danilt2000/SpCloud/" + name + "/" + dll_file_name;
 			logger_.log(INFO, "ExecStart command: " + exec_start_command);
-			logger_.log(INFO, "ExecStart create_service_file");
+			logger_.log(INFO, "ExecStart create_service_file_dotnet");
 
 			serviceFile << "[Service]\n";
 			serviceFile << "ExecStart=" << exec_start_command << "\n";
@@ -251,7 +254,11 @@ public:
 			serviceFile << "Restart=always\n";
 			serviceFile << "User=danilt2000\n";
 
-			serviceFile << "Environment=ASPNETCORE_URLS=http://0.0.0.0:" + port + "\n";
+			if (is_asp)
+			{
+				serviceFile << "Environment=ASPNETCORE_URLS=http://0.0.0.0:" + port + "\n";
+			}
+
 
 			serviceFile << "Environment=PATH=/usr/bin\n";
 			serviceFile << "Environment=NODE_ENV=production\n\n";
