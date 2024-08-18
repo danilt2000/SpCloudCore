@@ -59,6 +59,10 @@ Use the hosting responsibly and stay updated on any changes.
 ### Video Guide
 For a detailed walkthrough, watch the [video guide on YouTube](https://www.youtube.com/watch?v=_y95JUfvo_U).
 
+## Limits
+
+Authorization and use of this hosting is only available to people from the [Diamonds Studio team](https://discord.gg/BwKrmxQbp9).
+But if you have any interest write me in [telegram](https://t.me/Hepatacor) maybe I will add you to the whitelist.  
 
 ## Contribution
 
