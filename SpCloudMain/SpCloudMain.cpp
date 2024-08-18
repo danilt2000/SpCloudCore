@@ -72,18 +72,118 @@ int main()
 				return;
 			}
 
-			App* app = new App(name, user_id, "url", "local_url", target,"service_name");
+			App* app = new App(name, user_id, "url", "local_url", target, "service_name");
 
 			publish_controller.process_publish(req, app);
 
 			mongo_service.add_app(app->get_name(), app->get_user_id(), app->get_url(),
-				app->get_url_on_local_machine(), app->get_target(), app->get_service_name());//TODO UNCOMMENT AND FIX
+				app->get_url_on_local_machine(), app->get_target(), app->get_service_name());
+
+			mongo_service.increase_user_app_count_(app->get_user_id());
+
+			res.set_content("App is running on address:" + app->get_url(), "text/plain");
 
 			delete app;
-
-			res.set_content("App is running on address ????", "text/plain");//Todo add app address showing 
 		});
 
+
+	svr.Put("/update", [&](const httplib::Request& req, httplib::Response& res)
+		{
+			logger.log(INFO, "Start updating app");
+
+			std::string user_id = req.get_file_value("UserId").content;
+
+			std::string name = req.get_file_value("Name").content;
+
+			std::string authorization_token = req.get_header_value("Authorization");
+
+			string is_user_banned = mongo_service.is_user_banned(authorization_token);
+
+			if (is_user_banned != "Success")
+			{
+				res.set_content(is_user_banned, "text/plain");
+
+				return;
+			}
+
+			string is_user_app_owner = mongo_service.is_user_app_owner(authorization_token, name);
+
+			if (is_user_app_owner != "Success")
+			{
+				res.set_content(is_user_app_owner, "text/plain");
+
+				return;
+			}
+
+			App* app = new App(name, user_id, "url", "local_url", "target", "service_name");
+
+			publish_controller.process_update(req, app);
+
+			res.set_content("App was updated", "text/plain");
+
+			delete app;
+		});
+
+	svr.Delete("/delete", [&](const httplib::Request& req, httplib::Response& res)
+		{
+			logger.log(INFO, "Start updating app");
+
+			std::string user_id = req.get_file_value("UserId").content;
+
+			std::string name = req.get_file_value("Name").content;
+
+			std::string authorization_token = req.get_header_value("Authorization");
+
+			string is_user_banned = mongo_service.is_user_banned(authorization_token);
+
+			if (is_user_banned != "Success")
+			{
+				res.set_content(is_user_banned, "text/plain");
+
+				return;
+			}
+
+			string is_user_app_owner = mongo_service.is_user_app_owner(authorization_token, name);
+
+			if (is_user_app_owner != "Success")
+			{
+				res.set_content(is_user_app_owner, "text/plain");
+
+				return;
+			}
+
+			App* app = new App(name, user_id, "url", "local_url", "target", "service_name");
+
+			publish_controller.process_delete(req, app);
+
+			res.set_content("App was deleted", "text/plain");
+
+			mongo_service.decrease_user_app_count(app->get_user_id());
+
+			mongo_service.delete_document("Apps", "name", app->get_name());
+
+			delete app;
+		});
+
+	svr.Get("/apps", [&](const httplib::Request& req, httplib::Response& res)
+		{
+			std::string authorization_token = req.get_header_value("Authorization");
+
+			string is_user_banned = mongo_service.is_user_banned(authorization_token);
+
+			if (is_user_banned != "Success")
+			{
+				res.set_content(is_user_banned, "text/plain");
+
+				return;
+			}
+
+			string user_id = mongo_service.get_user_id_by_auth_token(authorization_token);
+
+			string app_list = mongo_service.get_app_list(user_id);
+
+			res.set_content(app_list, "text/plain");
+		});
 
 	svr.Post("/login", [&](const httplib::Request& req, httplib::Response& res)
 		{

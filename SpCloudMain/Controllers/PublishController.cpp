@@ -30,40 +30,36 @@ public:
 	}
 
 public:
-	std::string  process_publish(const httplib::Request& req, App* app)
+	std::string process_publish(const httplib::Request& req, App* app)
 	{
 		const auto& content = req.files.begin()->second.content;
 
 		const auto& filename = this->publish_app_path + req.files.begin()->second.filename;
 
 		if (filename.size() >= 4 && filename.substr(filename.size() - 4) == ".rar") {
-			//if (true) {//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
 			if (file_processing->save_file(filename, content)) {
 
-				std::string app_final_file_path = app->get_name() + app->get_user_id();//TODO VERY IMPORTANT CHANGE THIS RANDOM GENERATING TO GENERATE UNIQUE STRING
+				std::string app_final_file_path = app->get_name() + app->get_user_id();
 
 				logger_.log(INFO, "app_final_file_path: " + app_final_file_path);
 
-				file_processing->unzip(filename, this->publish_app_path + app_final_file_path);//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
+				file_processing->unzip(filename, this->publish_app_path + app_final_file_path);
 
 				check_port_and_increase_if_not_available();
 
 				file_processing->adjust_nginx_configuration_and_reloud(app->get_name(), std::to_string(last_available_port));
 
-				file_processing->create_service_file(this->publish_app_path, app_final_file_path);//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
-				//file_processing->create_service_file(app->get_name());//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
+				file_processing->create_service_file(this->publish_app_path, app_final_file_path, std::to_string(last_available_port));
 
 				if (app->get_target() == "dotnet network")
 				{
-					this->dotnet_publish(this->publish_app_path + app_final_file_path, last_available_port);//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
+					this->dotnet_publish(this->publish_app_path + app_final_file_path, last_available_port);
 				}
 
 				if (app->get_target() == "dotnet")
 				{
-					this->dotnet_publish(this->publish_app_path + app_final_file_path);//TODO UNCOMMIT WHEN STARING TO WRITE PUBLISH PROCESS
+					this->dotnet_publish(this->publish_app_path + app_final_file_path);
 				}
-
-				//Todo introduce increase counter of available app for user in mongo db
 
 				file_processing->delete_file(filename);
 
@@ -85,9 +81,58 @@ public:
 		}
 	}
 
+	std::string process_update(const httplib::Request& req, App* app)
+	{
+		const auto& content = req.files.begin()->second.content;
+
+		const auto& filename = this->publish_app_path + req.files.begin()->second.filename;
+
+		if (filename.size() >= 4 && filename.substr(filename.size() - 4) == ".rar") {
+			if (file_processing->save_file(filename, content)) {
+
+				std::string app_final_file_path = app->get_name() + app->get_user_id();
+
+				logger_.log(INFO, "app_final_file_path: " + app_final_file_path);
+
+				file_processing->delete_file(this->publish_app_path + app_final_file_path);
+
+				file_processing->unzip(filename, this->publish_app_path + app_final_file_path);
+
+				file_processing->stop_and_start_service_file(app_final_file_path);
+
+				file_processing->delete_file(filename);
+			}
+			else {
+				return "Invalid file type. Only .rar files are allowed." + filename;
+
+			}
+		}
+
+		return "Success";
+	}
+
+	std::string process_delete(const httplib::Request& req, App* app)
+	{
+		std::string app_final_file_path = app->get_name() + app->get_user_id();
+
+		logger_.log(INFO, "app_final_file_path: " + app_final_file_path);
+
+		file_processing->delete_file(this->publish_app_path + app_final_file_path);
+
+		file_processing->delete_file("/etc/systemd/system/" + app_final_file_path + ".service");
+
+		file_processing->remove_nginx_configuration_block_and_reload(app->get_name());
+
+		file_processing->stop_service_file(app_final_file_path);
+
+		//file_processing->stop_and_start_service_file(app_final_file_path);
+
+		return "Success";
+	}
+
 private:
 	void dotnet_publish(const std::string& path, int port)
-	{//Todo adjust to build setting from mongodb
+	{
 		std::string dll_file_name = file_processing->find_file_by_suffix(path, "exe");
 		size_t pos = dll_file_name.find(".exe");
 		if (pos != std::string::npos) {
@@ -103,8 +148,8 @@ private:
 		commandThread.detach();
 	}
 
-	void dotnet_publish(const std::string& path)
-	{//Todo adjust to build setting from mongodb
+	void dotnet_publish(const std::string& path)//Todo test publishing not network app
+	{
 		std::string dll_file_name = file_processing->find_file_by_suffix(path, "exe");
 		size_t pos = dll_file_name.find(".exe");
 		if (pos != std::string::npos) {
