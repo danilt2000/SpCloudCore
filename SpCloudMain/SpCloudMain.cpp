@@ -208,6 +208,13 @@ int main()
 
 	svr.Post("/login", [&](const httplib::Request& req, httplib::Response& res)
 		{
+			 std::regex bash_injection_pattern(R"([;&|<>`$\\])");
+			
+			  if (std::regex_search(req.body, bash_injection_pattern)) {
+        return;
+    }
+
+			
 			string discord_id = discord_service.get_discord_id(req.body);
 
 			std::string result = mongo_service.get_user_info(discord_id);
