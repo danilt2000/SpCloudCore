@@ -23,6 +23,12 @@ int main()
 
 	svr.Get("/ping", [&](const httplib::Request& req, httplib::Response& res)
 		{
+			std::regex bash_injection_pattern(R"([;&|<>`$\\])");
+
+			if (std::regex_search(req.body, bash_injection_pattern)) {
+				return;
+			}
+
 			std::cout << "Ping-\n";
 
 			logger.log(INFO, "App was pinged.");
@@ -46,6 +52,12 @@ int main()
 
 	svr.Post("/publish", [&](const httplib::Request& req, httplib::Response& res)
 		{
+			std::regex bash_injection_pattern(R"([;&|<>`$\\])");
+
+			if (std::regex_search(req.body, bash_injection_pattern)) {
+				return;
+			}
+
 			logger.log(INFO, "Start publish from main");
 
 			std::string user_id = req.get_file_value("UserId").content;
@@ -96,6 +108,12 @@ int main()
 
 	svr.Put("/update", [&](const httplib::Request& req, httplib::Response& res)
 		{
+			std::regex bash_injection_pattern(R"([;&|<>`$\\])");
+
+			if (std::regex_search(req.body, bash_injection_pattern)) {
+				return;
+			}
+
 			logger.log(INFO, "Start updating app");
 
 			std::string user_id = req.get_file_value("UserId").content;
@@ -140,6 +158,12 @@ int main()
 
 	svr.Delete("/delete", [&](const httplib::Request& req, httplib::Response& res)
 		{
+			std::regex bash_injection_pattern(R"([;&|<>`$\\])");
+
+			if (std::regex_search(req.body, bash_injection_pattern)) {
+				return;
+			}
+
 			logger.log(INFO, "Start updating app");
 
 			std::string user_id = req.get_file_value("UserId").content;
@@ -188,6 +212,13 @@ int main()
 
 	svr.Get("/apps", [&](const httplib::Request& req, httplib::Response& res)
 		{
+
+			std::regex bash_injection_pattern(R"([;&|<>`$\\])");
+
+			if (std::regex_search(req.body, bash_injection_pattern)) {
+				return;
+			}
+
 			std::string authorization_token = req.get_header_value("Authorization");
 
 			string is_user_banned = mongo_service.is_user_banned(authorization_token);
