@@ -6,6 +6,8 @@
 #include "Service/DiscordService.cpp"
 #include "Service/MongoDbService.cpp"
 #include "Models/App.cpp"
+#include "json.hpp"
+#include <algorithm>
 
 using namespace std;
 
@@ -62,10 +64,10 @@ int main()
 
 			std::string user_id = req.get_file_value("UserId").content;
 			std::string name = req.get_file_value("Name").content;
+
 			if (name.empty() || name == " ")
 			{
 				res.set_content("Select another app name", "text/plain");
-
 				return;
 			}
 
@@ -146,8 +148,8 @@ int main()
 
 				return;
 			}
-
-			App* app = new App(name, user_id, "url", "local_url", "target", "service_name");
+			nlohmann::json json_data = nlohmann::json::parse(mongo_service.get_app(name));
+			App* app = new App(name, user_id, json_data["url"], json_data["url_on_local_machine"], json_data["target"], json_data["service_name"]);
 
 			publish_controller.process_update(req, app);
 

@@ -26,7 +26,7 @@ public:
 
 	}
 
-	void adjust_nginx_configuration_and_reloud(const std::string& filename, std::string port)
+	void adjust_nginx_configuration_and_reload(const std::string& filename, std::string port)
 	{
 		std::lock_guard<std::mutex> lock(nginx_config_mutex);
 
@@ -86,7 +86,7 @@ public:
 		file_out << temp_content;
 		file_out.close();
 
-		std::string command = "sudo systemctl reload nginx";
+		std::string command = "cd ~/SpCloud/Infrastructure/ && docker compose -f nginx.yml up --build -d ";
 
 		std::thread commandThread(&CommandService::execute_command, command);
 
@@ -156,7 +156,7 @@ public:
 
 		outFile.close();
 
-		std::string command = "sudo systemctl reload nginx";
+		std::string command = "cd ~/SpCloud/Infrastructure/ && docker compose -f nginx.yml up --build -d ";
 
 		std::thread commandThread(&CommandService::execute_command, command);
 
@@ -207,81 +207,25 @@ public:
 
 	void stop_and_start_service_file(std::string name)
 	{
-		std::string command_stop = "sudo systemctl stop " + name + ".service";
+		std::string command_reload = "docker stop " + name;
 
-		std::string command_start = "sudo systemctl start " + name + ".service";
+		std::string response_reload = execute_and_log_command(command_reload);
 
-		std::string response_reload = execute_and_log_command(command_stop);
-
-		std::string response_enable = execute_and_log_command(command_start);
 	}
 
+	//Outdated
 	void stop_service_file(std::string name)
 	{
-		std::string command_stop = "sudo systemctl stop " + name + ".service";
+		std::string command_stop = "docker restart " + name;
 
 		std::string response_reload = execute_and_log_command(command_stop);
 	}
 
 	void create_service_file_dotnet(std::string path, std::string name, std::string port, bool is_asp)
 	{
-		logger_.log(INFO, "Start create_service_file_dotnet");
+		logger_.log(INFO, "Outdated. Please didnt use create_service_file_dotnet");
 
-		std::string dll_file_name = find_file_by_suffix(path + "/" + name, "exe");
-
-		size_t pos = dll_file_name.find(".exe");
-
-		if (pos != std::string::npos) {
-
-			dll_file_name.replace(pos, 4, ".dll");
-		}
-
-		std::string filename = "/etc/systemd/system/" + name + ".service";
-		std::ofstream serviceFile(filename);
-
-		if (serviceFile.is_open()) {
-			serviceFile << "[Unit]\n";
-			serviceFile << "Description=" << name << " Service\n";
-			serviceFile << "After=network.target\n\n";
-
-			std::string exec_start_command = "/usr/bin/dotnet /home/danilt2000/SpCloud/" + name + "/" + dll_file_name;
-			logger_.log(INFO, "ExecStart command: " + exec_start_command);
-			logger_.log(INFO, "ExecStart create_service_file_dotnet");
-
-			serviceFile << "[Service]\n";
-			serviceFile << "ExecStart=" << exec_start_command << "\n";
-			serviceFile << "WorkingDirectory=/home/danilt2000/SpCloud/" + name + "\n";
-			serviceFile << "Restart=always\n";
-			serviceFile << "User=danilt2000\n";
-
-			if (is_asp)
-			{
-				serviceFile << "Environment=ASPNETCORE_URLS=http://0.0.0.0:" + port + "\n";
-			}
-
-
-			serviceFile << "Environment=PATH=/usr/bin\n";
-			serviceFile << "Environment=NODE_ENV=production\n\n";
-
-			serviceFile << "[Install]\n";
-			serviceFile << "WantedBy=multi-user.target\n";
-
-			serviceFile.close();
-
-			std::string command_reload = "sudo systemctl daemon-reload";
-			std::string command_enable = "sudo systemctl enable " + name + ".service";
-			std::string command_start = "sudo systemctl start " + name + ".service";
-
-			std::string response_reload = execute_and_log_command(command_reload);
-			std::string response_enable = execute_and_log_command(command_enable);
-			std::string response_start = execute_and_log_command(command_start);
-
-
-			logger_.log(INFO, "Service file " + filename + " created successfully.\n");
-		}
-		else {
-			logger_.log(INFO, "Unable to open file " + filename + " for writing: " + strerror(errno) + "\n");
-		}
+		
 	}
 	std::string execute_and_log_command(const std::string& command) {
 		std::string result = execute_command(command);
@@ -308,8 +252,13 @@ public:
 	void unzip(const std::string& file_path, const std::string& final_files_directory) {
 		create_directory(final_files_directory);
 
-		std::string command = "unrar x " + file_path + " " + final_files_directory;
+		std::string command = "";
 
+		if (std::filesystem::path(file_path).extension() == ".rar") {
+			command = "unrar x " + file_path + " " + final_files_directory;
+		}else {
+			command = "tar -xzf " + file_path + " -C " + final_files_directory;
+		}
 		logger_.log(INFO, "Start unzip command" + command);
 
 		std::thread commandThread(&CommandService::execute_command, command);
@@ -319,7 +268,7 @@ public:
 
 	std::string find_file_by_suffix(const std::string& directory, const std::string& suffix) {
 		for (const auto& entry : std::filesystem::recursive_directory_iterator(directory)) {
-			if (entry.is_regular_file() && entry.path().filename().string().ends_with(suffix)) {
+			if (entry.is_regular_file() && std::filesystem::path(entry.path().filename()).extension() == suffix) {
 				return entry.path().filename().string();
 			}
 		}
