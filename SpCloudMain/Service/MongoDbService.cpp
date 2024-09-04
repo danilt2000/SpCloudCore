@@ -331,6 +331,29 @@ public:
 		return response;
 	}
 
+	std::string get_app(std::string name)//Todo test this method 
+	{
+		std::string json_data = R"({
+		"dataSource": "SpCloudCluster",
+		"database": "SpCloud",
+		"collection": "Apps",
+		"filter": {
+			"name": ")" + name + R"("
+		}
+		})";
+
+		std::string command = "curl --location 'https://eu-central-1.aws.data.mongodb-api.com/app/data-zvcqvrr/endpoint/data/v1/action/find' "
+			"--header 'Content-Type: application/json' "
+			"--header 'api-key: " + std::string(std::getenv("MongoDbApiKey")) + "' "
+			"--data-raw '" + json_data + "'";
+
+		auto request = std::async(std::launch::async, &MongoDbService::execute_command, this, command);
+
+		std::string response = request.get();
+
+		return response;
+	}
+
 	std::string get_app_list(std::string user_id)//Todo test this method 
 	{
 		std::string json_data = R"({

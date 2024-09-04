@@ -36,10 +36,10 @@ public:
 
 		const auto& filename = this->publish_app_path + req.files.begin()->second.filename;
 
-		if (filename.size() >= 4 && filename.substr(filename.size() - 4) == ".rar") {
+		if (filename.size() >= 4) {
 			if (file_processing->save_file(filename, content)) {
 
-				std::string app_final_file_path = app->get_name() + app->get_user_id();
+				std::string app_final_file_path = app->get_name() + "_" + app->get_user_id();
 
 				logger_.log(INFO, "app_final_file_path: " + app_final_file_path);
 
@@ -49,12 +49,9 @@ public:
 				{
 					check_port_and_increase_if_not_available();
 
-					file_processing->adjust_nginx_configuration_and_reloud(app->get_name(), std::to_string(last_available_port));//
+					file_processing->adjust_nginx_configuration_and_reload(app->get_name(), std::to_string(last_available_port));//
 
-					file_processing->create_service_file_dotnet(this->publish_app_path, app_final_file_path,
-						std::to_string(last_available_port), true);
-
-					//this->dotnet_publish(this->publish_app_path + app_final_file_path, last_available_port);//Test
+					this->dotnet_publish(this->publish_app_path + app_final_file_path, app_final_file_path, last_available_port);//Test
 
 					app->set_url("https://" + app->get_name() + ".almavid.ru/");
 
@@ -63,10 +60,7 @@ public:
 
 				if (app->get_target() == "dotnet")
 				{
-					file_processing->create_service_file_dotnet(this->publish_app_path, app_final_file_path,
-						std::to_string(last_available_port), false);
-
-					//this->dotnet_publish(this->publish_app_path + app_final_file_path);//Test
+					this->dotnet_publish(this->publish_app_path + app_final_file_path, app_final_file_path);
 
 					app->set_url("Worker Service");
 
@@ -94,27 +88,33 @@ public:
 		const auto& content = req.files.begin()->second.content;
 
 		const auto& filename = this->publish_app_path + req.files.begin()->second.filename;
+		
+		
+		if (file_processing->save_file(filename, content)) {
+			
+			std::string app_final_file_path = app->get_name() + app->get_user_id();
 
-		if (filename.size() >= 4 && filename.substr(filename.size() - 4) == ".rar") {
-			if (file_processing->save_file(filename, content)) {
+			logger_.log(INFO, "app_final_file_path: " + app_final_file_path);
 
-				std::string app_final_file_path = app->get_name() + app->get_user_id();
+			file_processing->delete_file(this->publish_app_path + app_final_file_path);
 
-				logger_.log(INFO, "app_final_file_path: " + app_final_file_path);
+			file_processing->unzip(filename, this->publish_app_path + app_final_file_path);
 
-				file_processing->delete_file(this->publish_app_path + app_final_file_path);
-
-				file_processing->unzip(filename, this->publish_app_path + app_final_file_path);
-
-				file_processing->stop_and_start_service_file(app_final_file_path);
-
-				file_processing->delete_file(filename);
+			file_processing->stop_service_file(app_final_file_path);
+			
+			if (app->get_target() == "dotnet network") {
+				check_port_and_increase_if_not_available();
+				this->dotnet_publish(this->publish_app_path + app_final_file_path, app_final_file_path, last_available_port);
+			}else {
+				this->dotnet_publish(this->publish_app_path + app_final_file_path, app_final_file_path);
 			}
-			else {
-				return "Invalid file type. Only .rar files are allowed." + filename;
-
-			}
+			
+			file_processing->delete_file(filename);
 		}
+		else {
+			return "Invalid file type. Only .rar files are allowed." + filename;
+		}
+		
 
 		return "Success";
 	}
@@ -125,48 +125,38 @@ public:
 
 		logger_.log(INFO, "app_final_file_path: " + app_final_file_path);
 
+		file_processing->stop_service_file(app_final_file_path);
+
 		file_processing->delete_file(this->publish_app_path + app_final_file_path);
 
 		file_processing->delete_file("/etc/systemd/system/" + app_final_file_path + ".service");
 
 		file_processing->remove_nginx_configuration_block_and_reload(app->get_name());
 
-		file_processing->stop_service_file(app_final_file_path);
-
 		return "Success";
 	}
 
 private:
-	void dotnet_publish(const std::string& path, int port)
+	void dotnet_publish(const std::string& path, const std::string& folderName, int port)
 	{
-		std::string dll_file_name = file_processing->find_file_by_suffix(path, "exe");
-		size_t pos = dll_file_name.find(".exe");
-		if (pos != std::string::npos) {
-			dll_file_name.replace(pos, 4, ".dll");
-		}
+		std::thread commandThreadBuild(&CommandService::execute_command, "docker build -t " + folderName + ".");
+		std::thread commandThreadRun(&CommandService::execute_command, "docker run -d -e ASPNETCORE_URLS=http://0.0.0.0:" + std::to_string(port) + "-p" + std::to_string(port)+":"+std::to_string(port) + "--name " + folderName + " " + folderName);
 
-		std::string command = R"(dotnet )" + path + "/" + dll_file_name + " --urls http://localhost:" + std::to_string(port);
+		logger_.log(INFO, "docker running container : " + folderName + " with port : " + std::to_string(port));
 
-		logger_.log(INFO, "dotnet_publish command : " + command);
-
-		std::thread commandThread(&CommandService::execute_command, command);
-
-		commandThread.detach();
+		commandThreadBuild.detach();
+		commandThreadRun.detach();
 	}
 
-	void dotnet_publish(const std::string& path)//Todo test publishing not network app
+	void dotnet_publish(const std::string& path, const std::string& folderName)
 	{
-		std::string dll_file_name = file_processing->find_file_by_suffix(path, "exe");
-		size_t pos = dll_file_name.find(".exe");
-		if (pos != std::string::npos) {
-			dll_file_name.replace(pos, 4, ".dll");
-		}
+		std::thread commandThreadBuild(&CommandService::execute_command, "docker build -t " + folderName + ".");
+		std::thread commandThreadRun(&CommandService::execute_command, "docker run -d --name " + folderName + " " + folderName);
 
-		std::string command = R"(dotnet )" + path + "/" + dll_file_name;
+		logger_.log(INFO, "docker running container : " + folderName);
 
-		std::thread commandThread(&CommandService::execute_command, command);
-
-		commandThread.detach();
+		commandThreadBuild.detach();
+		commandThreadRun.detach();
 	}
 
 	void check_port_and_increase_if_not_available()
